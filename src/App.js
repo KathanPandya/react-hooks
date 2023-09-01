@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { Fragment } from 'react';
+import { useState,useMemo } from 'react';
 
 function App() {
+
+  const [count, setCount] = useState(1);
+  const count1 = 0;
+
+  const heavyComputation = () => {
+    for (let i = 0; i < count * 100; i++) {
+      console.log("hello kathan");
+    }
+  };
+
+  const countUpdate =()=>{
+    setCount((prev) => prev + 1)
+    heavyComputation();
+  }
+
+  useMemo(() => {
+    heavyComputation();
+  }, [count1]);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <div>{count} </div>
+      <button onClick={countUpdate}> Click me</button>
+    </Fragment>
   );
 }
 
